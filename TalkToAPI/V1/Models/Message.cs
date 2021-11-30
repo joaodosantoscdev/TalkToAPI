@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace TalkToAPI.V1.Controllers
+namespace TalkToAPI.V1.Models
 {
     public class Message
     {

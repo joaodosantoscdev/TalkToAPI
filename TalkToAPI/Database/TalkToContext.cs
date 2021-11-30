@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TalkToAPI.V1.Controllers;
+using TalkToAPI.V1.Models;
 
 namespace TalkToAPI.Database
 {
@@ -15,5 +15,6 @@ namespace TalkToAPI.Database
         }
 
         public DbSet<Message> Message { get; set; }
+        public DbSet<Token> Tokens { get; set; }
     }
 }

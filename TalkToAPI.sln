@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31515.178
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TalkToAPI", "TalkToAPI\TalkToAPI.csproj", "{EA46F8FD-322E-4369-A4BE-F6603BB16575}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EA46F8FD-322E-4369-A4BE-F6603BB16575}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA46F8FD-322E-4369-A4BE-F6603BB16575}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA46F8FD-322E-4369-A4BE-F6603BB16575}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA46F8FD-322E-4369-A4BE-F6603BB16575}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AC569CD4-9CD5-40B2-9956-76C88F1381E6}
+	EndGlobalSection
+EndGlobal

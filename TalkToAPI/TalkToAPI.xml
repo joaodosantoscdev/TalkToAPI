@@ -41,6 +41,7 @@
             <param name="userDTO">Usuário</param>
             <param name="id">Usuário</param>
             <response code="200">Sucesso</response>
+            <response code="401">Usuário não autorizado</response>
             <response code="422">Entidade não processada.</response>
             <returns>Usuário registrado e atualizado na base de dados</returns>
         </member>

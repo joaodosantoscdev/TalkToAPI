@@ -16,6 +16,11 @@ namespace TalkToAPI.V1.Repositories
             _context = context;
         }
 
+        public Message GetOne(int id)
+        {
+            return _context.Message.Find(id);
+        }
+
         List<Message> IMessageRepository.GetMessages(string userOneId, string userTwoId)
         {
            return _context.Message.Where(m => (m.OwnerId == userOneId || m.OwnerId == userTwoId) 
@@ -25,6 +30,12 @@ namespace TalkToAPI.V1.Repositories
         void IMessageRepository.Register(Message message)
         {
             _context.Message.Add(message);
+            _context.SaveChanges();
+        }
+
+        public void Update(Message message)
+        {
+            _context.Message.Update(message);
             _context.SaveChanges();
         }
     }

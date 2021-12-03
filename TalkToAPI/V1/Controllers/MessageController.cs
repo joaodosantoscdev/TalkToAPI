@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -74,6 +75,36 @@ namespace TalkToAPI.V1.Controllers
             {
                 return UnprocessableEntity(ModelState);
             }
+        }
+        #endregion
+
+        //UPDATE PARTIAL - MessageController Method
+        #region UpdatePartial Method - Controller
+        /// <summary>
+        /// Atualiza Parcialmente Mensagens pelo Id na base de dados.
+        /// </summary>
+        /// <response code="200">Sucesso</response>
+        /// <response code="400">Erro no client-side (formatação, rota, requisição invalida)</response>
+        /// <response code="500">Erro interno do servidor</response>
+        /// <response code="401">Usuário não autorizado.</response>
+        /// <returns>A mensagem com propriedades atualizadas</returns>
+        [Authorize]
+        [HttpPatch("{id}")]
+        public IActionResult UpdatePartial(int id, JsonPatchDocument<Message> jsonPatch) 
+        {
+            if (jsonPatch == null)
+            {
+                return BadRequest();
+            }
+
+            var message = _messageRepository.GetOne(id);
+
+            jsonPatch.ApplyTo(message);
+            message.Att = DateTime.UtcNow;
+
+            _messageRepository.Update(message);
+
+            return Ok(message);
         }
         #endregion
 

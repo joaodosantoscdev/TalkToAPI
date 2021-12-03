@@ -15,12 +15,24 @@ namespace TalkToAPI.V1.Controllers
     [ApiVersion("1")]
     public class MessageController : ControllerBase
     {
+        // Dependencies Injected | Constructor
+        #region DI Injected
         private readonly IMessageRepository _messageRepository;
         public MessageController(IMessageRepository messageRepository)
         {
             _messageRepository = messageRepository;
         }
+        #endregion
 
+        //GET ALL MessageController Method
+        #region GET Method - Controller
+        /// <summary>
+        /// Busca e retorna todas os Mensagens de um chat na base de dados.
+        /// </summary>
+        /// <response code="200">Sucesso</response>
+        /// <response code="500">Erro interno do servidor</response>
+        /// <response code="401">Usuário não autorizado.</response>
+        /// <returns>Mensagens baseadas nos Ids dos usuários na query</returns>
         [Authorize]
         [HttpGet("{userOneId}/{userTwoId}")]
         public IActionResult Get(string userOneId, string userTwoId) 
@@ -31,7 +43,17 @@ namespace TalkToAPI.V1.Controllers
             }
             return Ok(_messageRepository.GetMessages(userOneId, userTwoId));
         }
+        #endregion
 
+        //REGISTER MessageController Method
+        #region Register Method - Controller
+        /// <summary>
+        /// Registra Mensagens do chat na base de dados.
+        /// </summary>
+        /// <response code="200">Sucesso</response>
+        /// <response code="500">Erro interno do servidor</response>
+        /// <response code="401">Usuário não autorizado.</response>
+        /// <returns>A mensagem registrada</returns>
         [Authorize]
         [HttpPost("")]
         public IActionResult Register(Message message)
@@ -53,5 +75,7 @@ namespace TalkToAPI.V1.Controllers
                 return UnprocessableEntity(ModelState);
             }
         }
+        #endregion
+
     }
 }

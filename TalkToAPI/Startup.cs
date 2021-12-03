@@ -181,9 +181,9 @@ namespace TalkToAPI
                     }
                     if (actionApiVersionModel.DeclaredApiVersions.Any())
                     {
-                        return actionApiVersionModel.DeclaredApiVersions.Any(v => $"v{v.ToString()}" == docName);
+                        return actionApiVersionModel.DeclaredApiVersions.Any(v => $"v{v}" == docName);
                     }
-                    return actionApiVersionModel.ImplementedApiVersions.Any(v => $"v{v.ToString()}" == docName);
+                    return actionApiVersionModel.ImplementedApiVersions.Any(v => $"v{v}" == docName);
                 });
 
                 cfg.OperationFilter<FilterSwagger>();

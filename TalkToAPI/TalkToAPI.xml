@@ -4,6 +4,24 @@
         <name>TalkToAPI</name>
     </assembly>
     <members>
+        <member name="M:TalkToAPI.V1.Controllers.MessageController.Get(System.String,System.String)">
+            <summary>
+            Busca e retorna todas os Mensagens de um chat na base de dados.
+            </summary>
+            <response code="200">Sucesso</response>
+            <response code="500">Erro interno do servidor</response>
+            <response code="401">Usuário não autorizado.</response>
+            <returns>Mensagens baseadas nos Ids dos usuários na query</returns>
+        </member>
+        <member name="M:TalkToAPI.V1.Controllers.MessageController.Register(TalkToAPI.V1.Models.Message)">
+            <summary>
+            Registra Mensagens do chat na base de dados.
+            </summary>
+            <response code="200">Sucesso</response>
+            <response code="500">Erro interno do servidor</response>
+            <response code="401">Usuário não autorizado.</response>
+            <returns>A mensagem registrada</returns>
+        </member>
         <member name="M:TalkToAPI.V1.Controllers.UserController.GetAll">
             <summary>
             Busca e retorna todos os Usuários contidos na base de dados.

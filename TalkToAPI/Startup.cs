@@ -70,6 +70,7 @@ namespace TalkToAPI
             //  Dependencies Repos
             #region Dependency Inject - Config
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IMessageRepository, MessageRepository>();
             services.AddScoped<ITokenRepository, TokenRepository>();
             #endregion
 

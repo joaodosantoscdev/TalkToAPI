@@ -9,8 +9,8 @@ using TalkToAPI.Database;
 namespace TalkToAPI.Migrations
 {
     [DbContext(typeof(TalkToContext))]
-    [Migration("20211130212640_AddToken")]
-    partial class AddToken
+    [Migration("20211203043918_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

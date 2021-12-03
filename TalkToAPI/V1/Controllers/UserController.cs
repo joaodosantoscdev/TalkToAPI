@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -130,6 +131,62 @@ namespace TalkToAPI.V1.Controllers
                     Email = userDTO.Email
                 };
                 var result = _userManager.CreateAsync(user, userDTO.Password).Result;
+
+                if (!result.Succeeded)
+                {
+                    List<string> errorsList = new();
+                    foreach (var error in result.Errors)
+                    {
+                        errorsList.Add(error.Description);
+                    }
+                    return UnprocessableEntity(errorsList);
+                }
+                else
+                {
+                    return Ok(user);
+                }
+            }
+            else
+            {
+                return UnprocessableEntity(ModelState);
+            }
+        }
+        #endregion
+
+        //Update UserController Method
+        #region Update Method - Controller 
+        /// <summary>
+        /// Atualiza um novo usuário na base de dados.
+        /// </summary>
+        /// <param name="userDTO">Usuário</param>
+        /// <param name="id">Usuário</param>
+        /// <response code="200">Sucesso</response>
+        /// <response code="422">Entidade não processada.</response>
+        /// <returns>Usuário registrado e atualizado na base de dados</returns>
+        [Authorize]
+        [HttpPut("{id}")]
+        public ActionResult Update(string id, UserDTO userDTO)
+        {
+            ApplicationUser user = _userManager.GetUserAsync(HttpContext.User).Result;
+            // implement a validation filter (TO DO)
+            if (user.Id != id) 
+            {
+                return Forbid();
+            }
+
+            if (ModelState.IsValid)
+            {
+
+                // need update for automapper (TO DO)
+                user.UserName = userDTO.Email;
+                user.FullName = userDTO.Name;
+                user.Email = userDTO.Email;
+                user.Slogan = userDTO.Slogan;
+
+                // remove identity password requirements (TO DO)
+                var result = _userManager.UpdateAsync(user).Result;
+                _userManager.RemovePasswordAsync(user);
+                _userManager.AddPasswordAsync(user, userDTO.Password);
 
                 if (!result.Succeeded)
                 {

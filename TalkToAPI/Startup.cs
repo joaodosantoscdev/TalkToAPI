@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using TalkToAPI.Database;
@@ -128,9 +129,9 @@ namespace TalkToAPI
             {
                 cfg.RespectBrowserAcceptHeader = false;
                 cfg.ReturnHttpNotAcceptable = true;
-                cfg.InputFormatters.Add(new XmlSerializerInputFormatter(cfg));
-                cfg.OutputFormatters.Add(new XmlSerializerOutputFormatter());
-            }).AddNewtonsoftJson();
+/*                cfg.InputFormatters.Add(new XmlSerializerInputFormatter(cfg));
+                cfg.OutputFormatters.Add(new XmlSerializerOutputFormatter());*/
+            }).AddNewtonsoftJson().AddXmlSerializerFormatters();
             #endregion
 
             //Auto Mapper - Config
@@ -209,21 +210,23 @@ namespace TalkToAPI
             #region Development Env - Config
             if (env.IsDevelopment())
             {
-                app.UseRouting();
-                app.UseStatusCodePages();
-
-
-                app.UseEndpoints(endpoints => endpoints.MapControllers());
             }
             #endregion
 
             // Use APP - Config
             #region Use APP - Config
+
+            
             app.UseHttpsRedirection();
             app.UseStatusCodePages();
+
             app.UseRouting();
-            app.UseAuthorization();
+
             app.UseAuthentication();
+            app.UseAuthorization();
+
+
+
             #endregion
 
             // Endpoints - Config

@@ -34,5 +34,15 @@
             <response code="422">Entidade não processada.</response>
             <returns>Usuário registrado na base de dados</returns>
         </member>
+        <member name="M:TalkToAPI.V1.Controllers.UserController.Update(System.String,TalkToAPI.V1.Models.DTO.UserDTO)">
+            <summary>
+            Atualiza um novo usuário na base de dados.
+            </summary>
+            <param name="userDTO">Usuário</param>
+            <param name="id">Usuário</param>
+            <response code="200">Sucesso</response>
+            <response code="422">Entidade não processada.</response>
+            <returns>Usuário registrado e atualizado na base de dados</returns>
+        </member>
     </members>
 </doc>

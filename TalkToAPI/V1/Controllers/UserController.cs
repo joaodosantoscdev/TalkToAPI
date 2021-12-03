@@ -38,6 +38,45 @@ namespace TalkToAPI.V1.Controllers
         }
         #endregion
 
+        //GET ALL and GET BY ID UserController Methods
+        #region GET Methods - Controller
+        /// <summary>
+        /// Busca e retorna todos os Usuários contidos na base de dados.
+        /// </summary>
+        /// <response code="200">Sucesso</response>
+        /// <response code="500">Erro interno do servidor</response>
+        /// <response code="401">Usuário não autorizado.</response>
+        /// <returns>Lista contendo todos os usuários na base</returns>
+        [Authorize]
+        [HttpGet]
+        public IActionResult GetAll() 
+        {
+            return Ok(_userManager.Users);
+        }
+
+        /// <summary>
+        /// Busca e retorna um Usuário contido na base de dados de acordo com Id.
+        /// </summary>
+        /// <param name="id">Id do Usuário</param>
+        /// <response code="200">Sucesso</response>
+        /// <response code="500">Erro interno do servidor</response>
+        /// <response code="404">Não foi encontrado usuário especificado.</response>
+        /// <response code="401">Usuário não autorizado.</response>
+        /// <returns>Usuário de acordo com Id informado</returns>
+        [Authorize]
+        [HttpGet("{id}")]
+        public IActionResult GetById(string id) 
+        {
+            var user = _userManager.FindByIdAsync(id).Result;
+
+            if (user.Id == null)
+            {
+                return NotFound();
+            }
+            return Ok(user);
+        }
+        #endregion
+
         // Login UserController Method (using JWT)
         #region Login Method - Controller 
         /// <summary>

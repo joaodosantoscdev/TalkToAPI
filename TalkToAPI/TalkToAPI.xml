@@ -4,6 +4,26 @@
         <name>TalkToAPI</name>
     </assembly>
     <members>
+        <member name="M:TalkToAPI.V1.Controllers.UserController.GetAll">
+            <summary>
+            Busca e retorna todos os Usuários contidos na base de dados.
+            </summary>
+            <response code="200">Sucesso</response>
+            <response code="500">Erro interno do servidor</response>
+            <response code="401">Usuário não autorizado.</response>
+            <returns>Lista contendo todos os usuários na base</returns>
+        </member>
+        <member name="M:TalkToAPI.V1.Controllers.UserController.GetById(System.String)">
+            <summary>
+            Busca e retorna um Usuário contido na base de dados de acordo com Id.
+            </summary>
+            <param name="id">Id do Usuário</param>
+            <response code="200">Sucesso</response>
+            <response code="500">Erro interno do servidor</response>
+            <response code="404">Não foi encontrado usuário especificado.</response>
+            <response code="401">Usuário não autorizado.</response>
+            <returns>Usuário de acordo com Id informado</returns>
+        </member>
         <member name="M:TalkToAPI.V1.Controllers.UserController.Login(TalkToAPI.V1.Models.DTO.UserDTO)">
             <summary>
             Efetua o Login do usuário e libera o token de acesso.

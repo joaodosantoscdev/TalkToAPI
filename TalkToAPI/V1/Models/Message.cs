@@ -21,7 +21,9 @@ namespace TalkToAPI.V1.Models
         public string ReceiverId { get; set; }
         [Required]
         public string ChatMessage { get; set; }
+        public bool Excluded { get; set; }
         public DateTime Created { get; set; }
+        public DateTime? Att { get; set; }
 
     }
 }

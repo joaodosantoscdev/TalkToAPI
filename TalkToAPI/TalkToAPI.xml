@@ -22,6 +22,16 @@
             <response code="401">Usuário não autorizado.</response>
             <returns>A mensagem registrada</returns>
         </member>
+        <member name="M:TalkToAPI.V1.Controllers.MessageController.UpdatePartial(System.Int32,Microsoft.AspNetCore.JsonPatch.JsonPatchDocument{TalkToAPI.V1.Models.Message})">
+            <summary>
+            Atualiza Parcialmente Mensagens pelo Id na base de dados.
+            </summary>
+            <response code="200">Sucesso</response>
+            <response code="400">Erro no client-side (formatação, rota, requisição invalida)</response>
+            <response code="500">Erro interno do servidor</response>
+            <response code="401">Usuário não autorizado.</response>
+            <returns>A mensagem com propriedades atualizadas</returns>
+        </member>
         <member name="M:TalkToAPI.V1.Controllers.UserController.GetAll">
             <summary>
             Busca e retorna todos os Usuários contidos na base de dados.

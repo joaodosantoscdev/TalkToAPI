@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TalkToAPI</name>
+    </assembly>
+    <members>
+        <member name="M:TalkToAPI.V1.Controllers.UserController.Login(TalkToAPI.V1.Models.UserDTO)">
+            <summary>
+            Efetua o Login do usuário e libera o token de acesso.
+            </summary>
+            <param name="userDTO">Usuário</param>
+            /// <response code="200">Sucesso</response>
+            <response code="422">Entidade não processada.</response>
+            <response code="404">Não foi encontrado usuário especificado.</response>
+            <response code="401">Usuário não autorizado.</response>
+            <returns>Token com data de expiração e emissão</returns>
+        </member>
+        <member name="M:TalkToAPI.V1.Controllers.UserController.Renew(TalkToAPI.V1.Models.TokenDTO)">
+            <summary>
+            Refresh/Renova o Token de acesso.
+            </summary>
+            <param name="tokenDTO">Token</param>
+            <response code="200">Sucesso</response>
+            <response code="404">Não foi encontrado usuário especificado.</response>
+            <response code="401">Usuário não autorizado.</response>
+            <returns>Renova e entrega Token com data de expiração e emissão</returns>
+        </member>
+        <member name="M:TalkToAPI.V1.Controllers.UserController.Register(TalkToAPI.V1.Models.UserDTO)">
+            <summary>
+            Cadastra um novo usuário na base de dados.
+            </summary>
+            <param name="userDTO">Usuário</param>
+            <response code="200">Sucesso</response>
+            <response code="422">Entidade não processada.</response>
+            <returns>Usuário registrado na base de dados</returns>
+        </member>
+    </members>
+</doc>

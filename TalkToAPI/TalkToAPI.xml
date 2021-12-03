@@ -4,7 +4,7 @@
         <name>TalkToAPI</name>
     </assembly>
     <members>
-        <member name="M:TalkToAPI.V1.Controllers.UserController.Login(TalkToAPI.V1.Models.UserDTO)">
+        <member name="M:TalkToAPI.V1.Controllers.UserController.Login(TalkToAPI.V1.Models.DTO.UserDTO)">
             <summary>
             Efetua o Login do usuário e libera o token de acesso.
             </summary>
@@ -15,7 +15,7 @@
             <response code="401">Usuário não autorizado.</response>
             <returns>Token com data de expiração e emissão</returns>
         </member>
-        <member name="M:TalkToAPI.V1.Controllers.UserController.Renew(TalkToAPI.V1.Models.TokenDTO)">
+        <member name="M:TalkToAPI.V1.Controllers.UserController.Renew(TalkToAPI.V1.Models.DTO.TokenDTO)">
             <summary>
             Refresh/Renova o Token de acesso.
             </summary>
@@ -25,7 +25,7 @@
             <response code="401">Usuário não autorizado.</response>
             <returns>Renova e entrega Token com data de expiração e emissão</returns>
         </member>
-        <member name="M:TalkToAPI.V1.Controllers.UserController.Register(TalkToAPI.V1.Models.UserDTO)">
+        <member name="M:TalkToAPI.V1.Controllers.UserController.Register(TalkToAPI.V1.Models.DTO.UserDTO)">
             <summary>
             Cadastra um novo usuário na base de dados.
             </summary>

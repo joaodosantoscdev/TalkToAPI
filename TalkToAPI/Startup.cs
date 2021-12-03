@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -21,6 +22,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TalkToAPI.Database;
+using TalkToAPI.Helpers;
 using TalkToAPI.Helpers.Swagger;
 using TalkToAPI.V1.Models;
 using TalkToAPI.V1.Repositories;
@@ -129,6 +131,16 @@ namespace TalkToAPI
                 cfg.InputFormatters.Add(new XmlSerializerInputFormatter(cfg));
                 cfg.OutputFormatters.Add(new XmlSerializerOutputFormatter());
             }).AddNewtonsoftJson();
+            #endregion
+
+            //Auto Mapper - Config
+            #region Auto-Mapper - Config 
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new DTOMapperProfile());
+            });
+            IMapper mapper = config.CreateMapper();
+            services.AddSingleton(mapper);
             #endregion
 
             //Swagger - Config

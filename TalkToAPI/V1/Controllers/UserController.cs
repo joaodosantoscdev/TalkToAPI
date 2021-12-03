@@ -9,6 +9,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using TalkToAPI.V1.Models;
+using TalkToAPI.V1.Models.DTO;
 using TalkToAPI.V1.Repositories.Interfaces;
 
 namespace TalkToAPI.V1.Controllers

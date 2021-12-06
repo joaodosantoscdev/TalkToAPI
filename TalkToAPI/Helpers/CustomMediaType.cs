@@ -5,7 +5,8 @@ using System.Threading.Tasks;
 
 namespace TalkToAPI.Helpers
 {
-    public class MediaType
+    public class CustomMediaType
     {
+        public const string Hateoas = "application/vnd.codemaze.hateoas+json";
     }
 }

@@ -135,7 +135,7 @@ namespace TalkToAPI
                         .OfType<NewtonsoftJsonOutputFormatter>()?.FirstOrDefault();
                 if (newtonsoftJsonOutputFormatter != null)
                 {
-                    newtonsoftJsonOutputFormatter.SupportedMediaTypes.Add("application/vnd.codemaze.hateoas+json");                    
+                    newtonsoftJsonOutputFormatter.SupportedMediaTypes.Add(CustomMediaType.Hateoas);                    
                 }
                 
 

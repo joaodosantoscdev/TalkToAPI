@@ -13,7 +13,7 @@
             <response code="401">Usuário não autorizado.</response>
             <returns>Mensagens baseadas nos Ids dos usuários na query</returns>
         </member>
-        <member name="M:TalkToAPI.V1.Controllers.MessageController.Register(TalkToAPI.V1.Models.Message)">
+        <member name="M:TalkToAPI.V1.Controllers.MessageController.Register(TalkToAPI.V1.Models.Message,System.String)">
             <summary>
             Registra Mensagens do chat na base de dados.
             </summary>
@@ -22,7 +22,7 @@
             <response code="401">Usuário não autorizado.</response>
             <returns>A mensagem registrada</returns>
         </member>
-        <member name="M:TalkToAPI.V1.Controllers.MessageController.UpdatePartial(System.Int32,Microsoft.AspNetCore.JsonPatch.JsonPatchDocument{TalkToAPI.V1.Models.Message})">
+        <member name="M:TalkToAPI.V1.Controllers.MessageController.UpdatePartial(System.Int32,Microsoft.AspNetCore.JsonPatch.JsonPatchDocument{TalkToAPI.V1.Models.Message},System.String)">
             <summary>
             Atualiza parcialmente Mensagens pelo Id na base de dados.
             </summary>

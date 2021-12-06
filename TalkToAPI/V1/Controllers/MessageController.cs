@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TalkToAPI.Helpers;
 using TalkToAPI.V1.Models;
 using TalkToAPI.V1.Models.DTO;
 using TalkToAPI.V1.Repositories.Interfaces;
@@ -49,7 +50,7 @@ namespace TalkToAPI.V1.Controllers
 
             var messages = _messageRepository.GetMessages(userOneId, userTwoId);
 
-            if (mediaType == "application/vnd.codemaze.hateoas+json")
+            if (mediaType == CustomMediaType.Hateoas)
             {
                 var listMsg = _mapper.Map<List<Message>, List<MessageDTO>>(messages);
 
@@ -76,19 +77,25 @@ namespace TalkToAPI.V1.Controllers
         /// <returns>A mensagem registrada</returns>
         [Authorize]
         [HttpPost("", Name = "RegisterMessage")]
-        public IActionResult Register(Message message)
+        public IActionResult Register(Message message, [FromHeader(Name = "Accept")] string mediaType)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
                     _messageRepository.Register(message);
+                    if (mediaType == CustomMediaType.Hateoas)
+                    {
+                        var messageDb = _mapper.Map<Message, MessageDTO>(message);
+                        messageDb.Links.Add(new LinkDTO("_self", "POST", Url.Link("RegisterMessage", null)));
+                        messageDb.Links.Add(new LinkDTO("_attPartial", "PATCH", Url.Link("UpdateMessagePartial", new { id = message.Id })));
 
-                    var messageDb = _mapper.Map<Message, MessageDTO>(message);
-                    messageDb.Links.Add(new LinkDTO("_self", "POST", Url.Link("RegisterMessage", null)));
-                    messageDb.Links.Add(new LinkDTO("_attPartial", "PATCH", Url.Link("UpdateMessagePartial", new { id = message.Id })));
-
-                    return Ok(messageDb);
+                        return Ok(messageDb);
+                    }
+                    else 
+                    {
+                        return Ok(message);
+                    }
                 }
                 catch (Exception e) 
                 {
@@ -114,7 +121,7 @@ namespace TalkToAPI.V1.Controllers
         /// <returns>A mensagem com propriedades atualizadas</returns>
         [Authorize]
         [HttpPatch("{id}", Name = "UpdateMessagePartial")]
-        public IActionResult UpdatePartial(int id, JsonPatchDocument<Message> jsonPatch) 
+        public IActionResult UpdatePartial(int id, JsonPatchDocument<Message> jsonPatch, [FromHeader(Name = "Accept")] string mediaType) 
         {
             if (jsonPatch == null)
             {
@@ -128,10 +135,19 @@ namespace TalkToAPI.V1.Controllers
 
             _messageRepository.Update(message);
 
-            var messageDb = _mapper.Map<Message, MessageDTO>(message);
-            messageDb.Links.Add(new LinkDTO("_self", "PATCH", Url.Link("UpdateMessagePartial", new { id = message.Id })));
+            if (mediaType == CustomMediaType.Hateoas)
+            {
+                var messageDb = _mapper.Map<Message, MessageDTO>(message);
+                messageDb.Links.Add(new LinkDTO("_self", "PATCH", Url.Link("UpdateMessagePartial", new { id = message.Id })));
 
-            return Ok(messageDb);
+                return Ok(messageDb);
+            }
+            else 
+            {
+                return Ok(message);
+            }
+
+
         }
         #endregion
 

@@ -128,16 +128,15 @@ namespace TalkToAPI
             {
                 cfg.RespectBrowserAcceptHeader = true;
                 cfg.ReturnHttpNotAcceptable = false;
-                cfg.InputFormatters.Add(new XmlSerializerInputFormatter(cfg));
-                cfg.OutputFormatters.Add(new XmlSerializerOutputFormatter()); 
+/*                cfg.InputFormatters.Add(new XmlSerializerInputFormatter(cfg));
+                cfg.OutputFormatters.Add(new XmlSerializerOutputFormatter()); */
 
                 var newtonsoftJsonOutputFormatter = cfg.OutputFormatters
                         .OfType<NewtonsoftJsonOutputFormatter>()?.FirstOrDefault();
                 if (newtonsoftJsonOutputFormatter != null)
                 {
-                    newtonsoftJsonOutputFormatter.SupportedMediaTypes.Add("application/vnd.codemaze.hateoas+json");                    
-                }
-                
+                    newtonsoftJsonOutputFormatter.SupportedMediaTypes.Add(CustomMediaType.Hateoas);                    
+                }              
 
             }).AddNewtonsoftJson().AddXmlSerializerFormatters();
             #endregion

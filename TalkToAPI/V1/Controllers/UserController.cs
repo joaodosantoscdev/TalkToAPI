@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -22,15 +23,18 @@ namespace TalkToAPI.V1.Controllers
     {
         // Dependencies Injected | Constructor
         #region DI Injected
+        private readonly IMapper _mapper;
         private readonly ITokenRepository _tokenRepository;
         private readonly IUserRepository _userRepository;
         private readonly SignInManager<ApplicationUser> _signIn;
         private readonly UserManager<ApplicationUser> _userManager;
-        public UserController(IUserRepository userRepository,
+        public UserController(IMapper mapper,
+                              IUserRepository userRepository,
                               SignInManager<ApplicationUser> signIn,
                               UserManager<ApplicationUser> userManager,
                               ITokenRepository tokenRepository)
         {
+            _mapper = mapper;
             _userRepository = userRepository;
             _signIn = signIn;
             _userManager = userManager;
@@ -48,10 +52,20 @@ namespace TalkToAPI.V1.Controllers
         /// <response code="401">Usuário não autorizado.</response>
         /// <returns>Lista contendo todos os usuários na base</returns>
         [Authorize]
-        [HttpGet]
+        [HttpGet("", Name = "GetAllUsers")]
         public IActionResult GetAll() 
         {
-            return Ok(_userManager.Users);
+            var appUsers = _userManager.Users.ToList();
+            var userDTOList = _mapper.Map<List<ApplicationUser>, List<UserDTO>>(appUsers);
+
+            foreach (var userDTO in userDTOList) 
+            {
+                userDTO.Links.Add(new LinkDTO("_self", "GET", Url.Link("GetUser", new { id = userDTO.Id })));
+            }
+
+            var list = new ListDTO<UserDTO>() { List = userDTOList };
+            list.Links.Add(new LinkDTO("_self", "GET", Url.Link("GetAllUsers", null)));
+            return Ok(list);
         }
 
         /// <summary>
@@ -64,7 +78,7 @@ namespace TalkToAPI.V1.Controllers
         /// <response code="401">Usuário não autorizado.</response>
         /// <returns>Usuário de acordo com Id informado</returns>
         [Authorize]
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name = "GetUser")]
         public IActionResult GetById(string id) 
         {
             var user = _userManager.FindByIdAsync(id).Result;
@@ -73,7 +87,12 @@ namespace TalkToAPI.V1.Controllers
             {
                 return NotFound();
             }
-            return Ok(user);
+
+            var userDTODb = _mapper.Map<ApplicationUser, UserDTO>(user);
+            userDTODb.Links.Add(new LinkDTO("_self", "GET", Url.Link("GetUser", new { id = user.Id })));
+            userDTODb.Links.Add(new LinkDTO("_att", "PUT", Url.Link("UpdateUser", new { id = user.Id })));
+
+            return Ok(userDTODb);
         }
         #endregion
 
@@ -158,7 +177,7 @@ namespace TalkToAPI.V1.Controllers
         /// <response code="200">Sucesso</response>
         /// <response code="422">Entidade não processada.</response>
         /// <returns>Usuário registrado na base de dados</returns>
-        [HttpPost("")]
+        [HttpPost("", Name = "RegisterUser")]
         public ActionResult Register(UserDTO userDTO)
         {
             if (ModelState.IsValid)
@@ -182,7 +201,12 @@ namespace TalkToAPI.V1.Controllers
                 }
                 else
                 {
-                    return Ok(user);
+                    var userDTODb = _mapper.Map<ApplicationUser, UserDTO>(user);
+                    userDTODb.Links.Add(new LinkDTO("_self", "POST", Url.Link("RegisterUser", new { id = user.Id })));
+                    userDTODb.Links.Add(new LinkDTO("_get", "GET", Url.Link("GetUser", new { id = user.Id })));
+                    userDTODb.Links.Add(new LinkDTO("_att", "PUT", Url.Link("UpdateUser", new { id = user.Id })));
+
+                    return Ok(userDTODb);
                 }
             }
             else
@@ -204,7 +228,7 @@ namespace TalkToAPI.V1.Controllers
         /// <response code="422">Entidade não processada.</response>
         /// <returns>Usuário registrado e atualizado na base de dados</returns>
         [Authorize]
-        [HttpPut("{id}")]
+        [HttpPut("{id}", Name = "UpdateUser")]
         public ActionResult Update(string id, UserDTO userDTO)
         {
             ApplicationUser user = _userManager.GetUserAsync(HttpContext.User).Result;
@@ -239,7 +263,11 @@ namespace TalkToAPI.V1.Controllers
                 }
                 else
                 {
-                    return Ok(user);
+                    var userDTODb = _mapper.Map<ApplicationUser, UserDTO>(user);
+                    userDTODb.Links.Add(new LinkDTO("_self", "PUT", Url.Link("UpdateUser", new { id = user.Id })));
+                    userDTODb.Links.Add(new LinkDTO("_get", "GET", Url.Link("GetUser", new { id = user.Id })));
+
+                    return Ok(userDTODb);
                 }
             }
             else

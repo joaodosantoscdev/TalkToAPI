@@ -24,7 +24,7 @@
         </member>
         <member name="M:TalkToAPI.V1.Controllers.MessageController.UpdatePartial(System.Int32,Microsoft.AspNetCore.JsonPatch.JsonPatchDocument{TalkToAPI.V1.Models.Message})">
             <summary>
-            Atualiza Parcialmente Mensagens pelo Id na base de dados.
+            Atualiza parcialmente Mensagens pelo Id na base de dados.
             </summary>
             <response code="200">Sucesso</response>
             <response code="400">Erro no client-side (formatação, rota, requisição invalida)</response>

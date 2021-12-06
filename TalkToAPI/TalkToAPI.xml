@@ -4,7 +4,7 @@
         <name>TalkToAPI</name>
     </assembly>
     <members>
-        <member name="M:TalkToAPI.V1.Controllers.MessageController.Get(System.String,System.String)">
+        <member name="M:TalkToAPI.V1.Controllers.MessageController.Get(System.String,System.String,System.String)">
             <summary>
             Busca e retorna todas os Mensagens de um chat na base de dados.
             </summary>

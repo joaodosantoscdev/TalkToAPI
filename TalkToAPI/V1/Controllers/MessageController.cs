@@ -40,7 +40,7 @@ namespace TalkToAPI.V1.Controllers
         /// <returns>Mensagens baseadas nos Ids dos usuários na query</returns>
         [Authorize]
         [HttpGet("{userOneId}/{userTwoId}", Name = "GetMessages")]
-        public IActionResult Get(string userOneId, string userTwoId) 
+        public IActionResult Get(string userOneId, string userTwoId, [FromHeader(Name = "Accept")]string mediaType) 
         {
             if (userOneId == userTwoId) 
             {
@@ -48,12 +48,20 @@ namespace TalkToAPI.V1.Controllers
             }
 
             var messages = _messageRepository.GetMessages(userOneId, userTwoId);
-            var listMsg = _mapper.Map<List<Message>, List<MessageDTO>>(messages);
 
-            var list = new ListDTO<MessageDTO>() { List = listMsg };
-            list.Links.Add(new LinkDTO("_self", "GET", Url.Link("GetMessages", new { userOneId = userOneId, userTwoId = userTwoId })));
+            if (mediaType == "application/vnd.codemaze.hateoas+json")
+            {
+                var listMsg = _mapper.Map<List<Message>, List<MessageDTO>>(messages);
 
-            return Ok(list);
+                var list = new ListDTO<MessageDTO>() { List = listMsg };
+                list.Links.Add(new LinkDTO("_self", "GET", Url.Link("GetMessages", new { userOneId = userOneId, userTwoId = userTwoId })));
+
+                return Ok(list);
+            }
+            else
+            {
+                return Ok(messages);
+            }
         }
         #endregion
 
@@ -121,7 +129,7 @@ namespace TalkToAPI.V1.Controllers
             _messageRepository.Update(message);
 
             var messageDb = _mapper.Map<Message, MessageDTO>(message);
-            messageDb.Links.Add(new LinkDTO("_self", "POST", Url.Link("UpdateMessagePartial", new { id = message.Id })));
+            messageDb.Links.Add(new LinkDTO("_self", "PATCH", Url.Link("UpdateMessagePartial", new { id = message.Id })));
 
             return Ok(messageDb);
         }

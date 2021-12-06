@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,6 +16,8 @@ using Microsoft.OpenApi.Models;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using TalkToAPI.Database;
@@ -123,10 +126,19 @@ namespace TalkToAPI
             #region Add Controllers - Config
             services.AddControllers(cfg =>
             {
-                cfg.RespectBrowserAcceptHeader = false;
-                cfg.ReturnHttpNotAcceptable = true;
-/*                cfg.InputFormatters.Add(new XmlSerializerInputFormatter(cfg));
-                cfg.OutputFormatters.Add(new XmlSerializerOutputFormatter());*/
+                cfg.RespectBrowserAcceptHeader = true;
+                cfg.ReturnHttpNotAcceptable = false;
+                cfg.InputFormatters.Add(new XmlSerializerInputFormatter(cfg));
+                cfg.OutputFormatters.Add(new XmlSerializerOutputFormatter()); 
+
+                var newtonsoftJsonOutputFormatter = cfg.OutputFormatters
+                        .OfType<NewtonsoftJsonOutputFormatter>()?.FirstOrDefault();
+                if (newtonsoftJsonOutputFormatter != null)
+                {
+                    newtonsoftJsonOutputFormatter.SupportedMediaTypes.Add("application/vnd.codemaze.hateoas+json");                    
+                }
+                
+
             }).AddNewtonsoftJson().AddXmlSerializerFormatters();
             #endregion
 

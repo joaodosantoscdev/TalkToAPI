@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace TalkToAPI.V1.Models.DTO
 {
-    public class UserDTO
+    public class UserDTO : BaseDTO
     {
+        public string Id { get; set; }
         [Required]
         public string Name { get; set; }
         [Required]

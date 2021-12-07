@@ -49,9 +49,27 @@ namespace TalkToAPI
             #endregion
 
             // AddMvc - API - Config
-            #region Add Mvc - Config
+            #region Mvc - Config
             services.AddMvc();
 
+            #endregion
+
+            //AddCors - WEB API - Config
+            #region Cors - Config
+            services.AddCors(cfg => { 
+               cfg.AddDefaultPolicy(plc => {
+                   plc.WithOrigins("https://localhost:44326", "https://localhost:44326") //Put your env gate to work and return the response headers
+                   .AllowAnyHeader()
+                   .SetIsOriginAllowedToAllowWildcardSubdomains() //Allow Cors to sub domains
+                   .AllowAnyMethod();
+               });
+                cfg.AddPolicy("AnyOrigin", plc => {
+                    plc.AllowAnyOrigin()
+                    .WithMethods("GET")
+                    .AllowAnyHeader();
+                });
+
+            });
             #endregion
 
             // Api Versioning
@@ -79,7 +97,13 @@ namespace TalkToAPI
 
             //  Identity - Config
             #region Identity - Config
-            services.AddIdentity<ApplicationUser, IdentityRole>()
+            services.AddIdentity<ApplicationUser, IdentityRole>(cfg => {
+                cfg.Password.RequireDigit = false;
+                cfg.Password.RequiredLength = 5;
+                cfg.Password.RequireLowercase = false;
+                cfg.Password.RequireUppercase = false;
+                cfg.Password.RequireNonAlphanumeric = false;
+            })
                 .AddEntityFrameworkStores<TalkToContext>()
                 .AddDefaultTokenProviders();
             #endregion
@@ -223,7 +247,9 @@ namespace TalkToAPI
             // Use APP - Config
             #region Use APP - Config
 
-            
+            //Disable this when you want to use attributes EnableCors/DisableCors
+            /*app.UseCors("AnyOrigin");*/
+
             app.UseHttpsRedirection();
             app.UseStatusCodePages();
 

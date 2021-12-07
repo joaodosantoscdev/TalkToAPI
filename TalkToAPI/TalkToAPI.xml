@@ -32,7 +32,7 @@
             <response code="401">Usuário não autorizado.</response>
             <returns>A mensagem com propriedades atualizadas</returns>
         </member>
-        <member name="M:TalkToAPI.V1.Controllers.UserController.GetAll">
+        <member name="M:TalkToAPI.V1.Controllers.UserController.GetAll(System.String)">
             <summary>
             Busca e retorna todos os Usuários contidos na base de dados.
             </summary>
@@ -41,7 +41,7 @@
             <response code="401">Usuário não autorizado.</response>
             <returns>Lista contendo todos os usuários na base</returns>
         </member>
-        <member name="M:TalkToAPI.V1.Controllers.UserController.GetById(System.String)">
+        <member name="M:TalkToAPI.V1.Controllers.UserController.GetById(System.String,System.String)">
             <summary>
             Busca e retorna um Usuário contido na base de dados de acordo com Id.
             </summary>
@@ -73,7 +73,7 @@
             <response code="401">Usuário não autorizado.</response>
             <returns>Renova e entrega Token com data de expiração e emissão</returns>
         </member>
-        <member name="M:TalkToAPI.V1.Controllers.UserController.Register(TalkToAPI.V1.Models.DTO.UserDTO)">
+        <member name="M:TalkToAPI.V1.Controllers.UserController.Register(TalkToAPI.V1.Models.DTO.UserDTO,System.String)">
             <summary>
             Cadastra um novo usuário na base de dados.
             </summary>
@@ -82,7 +82,7 @@
             <response code="422">Entidade não processada.</response>
             <returns>Usuário registrado na base de dados</returns>
         </member>
-        <member name="M:TalkToAPI.V1.Controllers.UserController.Update(System.String,TalkToAPI.V1.Models.DTO.UserDTO)">
+        <member name="M:TalkToAPI.V1.Controllers.UserController.Update(System.String,TalkToAPI.V1.Models.DTO.UserDTO,System.String)">
             <summary>
             Atualiza um novo usuário na base de dados.
             </summary>

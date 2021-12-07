@@ -201,12 +201,8 @@ namespace TalkToAPI.V1.Controllers
         {
             if (ModelState.IsValid)
             {
-                ApplicationUser user = new()
-                {
-                    UserName = userDTO.Email,
-                    FullName = userDTO.Name,
-                    Email = userDTO.Email
-                };
+                ApplicationUser user = _mapper.Map<UserDTO, ApplicationUser>(userDTO);
+
                 var result = _userManager.CreateAsync(user, userDTO.Password).Result;
 
                 if (!result.Succeeded)
@@ -259,7 +255,7 @@ namespace TalkToAPI.V1.Controllers
         public ActionResult Update(string id, UserDTO userDTO, [FromHeader(Name = "Accept")] string mediaType)
         {
             ApplicationUser user = _userManager.GetUserAsync(HttpContext.User).Result;
-            // implement a validation filter (TO DO)
+
             if (user.Id != id) 
             {
                 return Forbid();
@@ -267,14 +263,11 @@ namespace TalkToAPI.V1.Controllers
 
             if (ModelState.IsValid)
             {
-
-                // need update for automapper (TO DO)
                 user.UserName = userDTO.Email;
                 user.FullName = userDTO.Name;
                 user.Email = userDTO.Email;
                 user.Slogan = userDTO.Slogan;
 
-                // remove identity password requirements (TO DO)
                 var result = _userManager.UpdateAsync(user).Result;
                 _userManager.RemovePasswordAsync(user);
                 _userManager.AddPasswordAsync(user, userDTO.Password);

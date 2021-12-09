@@ -1,4 +1,5 @@
 # TalkTo - A Chat API, developed in Udemy REST API classes
+
 <hr>
 <h3>A chat Restfull API serving web and mobile developed on .Net 5 using C#<h3>
 <hr>
@@ -39,7 +40,7 @@
   <li>JWT Token Validation on Log-in (with Token refresh) 🔧</li>
   <li>Hyperlinks in the body of any response ⬇</li>
   <li>Content-Negociation for having those hyperlinks if you want [Hateoas] 🔧
-  <br><small>(you need to put in the Accept Header the value "application/vnd.codemaze.hateoas+json")</small></li>  
+  <br><small>(you need to put in the Accept Header the value "application/vnd.codemaze.hateoas+json")</small></li> 
 </ul>
 <br>
 <h3>How to run ⮯</h3>
@@ -50,4 +51,3 @@
 <em>'This project has no commercial purposes, it was carried out only for the application of my studies'📚</em>
 <hr>
 <strong>----João Vítor Carvalho 👨‍💻 ---</strong>
-

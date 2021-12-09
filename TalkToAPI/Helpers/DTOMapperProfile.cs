@@ -15,6 +15,11 @@ namespace TalkToAPI.Helpers
             CreateMap<ApplicationUser, UserDTO>()
                 .ForMember(dest => dest.Name, orig => orig.MapFrom(src => src.FullName));
 
+            CreateMap<UserDTO, ApplicationUser>()
+                .ForMember(dest => dest.FullName, orig => orig.MapFrom(src => src.Name))
+                .ForMember(dest => dest.UserName, orig => orig.MapFrom(src => src.Email))
+                .ForMember(dest => dest.Id, orig => orig.Condition(src => src.Id != null));
+
             CreateMap<ApplicationUser, UserDTONoHyperLink>()
                 .ForMember(dest => dest.Name, orig => orig.MapFrom(src => src.FullName));
 

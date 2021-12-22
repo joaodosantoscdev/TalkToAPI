@@ -32,15 +32,15 @@
 <br>
 <hr>
 <h3>Overview ⮯</h3>
-<p>The REST API is based on a Chat App concept, serving web/mobile, this is a chat api with login system, who deliver messages based on a two users conversation, matching the Id related between the user and the messages, you also can patch and delete(disable) the massages, if send wrong, the login system verify the user based on a JWT Token Validation that preserve the user data, having a refresh time, also you can navigate the api with the links provided by the hateoas in the responses, content negociation applyed so you can use it to have, if you want, hyperlinks in the body of the responses to easily navigate between funcionallities.</p>
+<p>The REST API is based on a Chat App concept, serving web/mobile, this is a chat api with login system, who deliver messages based on a two users conversation, matching the Id related between the user and the messages, you also can patch and delete(disable) the massages, if send wrong, the login system verify the user based on a JWT Token Validation that preserve the user data, having a refresh time, also you can navigate the api with the links provided by the hateoas in the responses, content negociation applied so you can use it to have, if you want, hyperlinks in the body of the responses to easily navigate between funcionallities.</p>
 <br>
 <h3>This project has concepts like :<h3>
 <ul>
   <li>Totally RESTFULL API ⬇</li>
-  <li>JWT Token Validation on Log-in (with Token refresh) 🔧</li>
-  <li>Hyperlinks in the body of any response ⬇</li>
-  <li>Content-Negociation for having those hyperlinks if you want [Hateoas] 🔧
-  <br><small>(you need to put in the Accept Header the value "application/vnd.codemaze.hateoas+json")</small></li> 
+  <li><p>JWT Token Validation on Log-in (with Token refresh)🔧</p> </li>
+  <li><p>Hyperlinks in the body of any response ⬇</p></li>
+  <li><p>Content-Negociation for having those hyperlinks if you want [Hateoas] 🔧 <br>
+  <br><small>(you need to put in the Accept Header the value "application/vnd.codemaze.hateoas+json")</small></p></li> 
 </ul>
 <br>
 <h3>How to run ⮯</h3>
